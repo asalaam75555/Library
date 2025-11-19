@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+h1{
+    text-align: center;
+}
+
+#display-books{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+table{
+    flex: 1;
+}
+
+tbody{
+    text-align: center;
+}
