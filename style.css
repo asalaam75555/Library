@@ -27,3 +27,43 @@ table{
 tbody{
     text-align: center;
 }
+
+button{
+    width: 100px;
+}
+
+#add-btn{
+    align-self: center;
+}
+
+#dialog-form{
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 400px;
+    height: 200px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+#btn-div{
+    display: flex;
+    align-items: flex-end;
+}
+
+.input-divs{
+    display: flex;
+}
+
+#input-fields{
+    flex: 1;
+}
+
+input, label, #btn-div button{
+    flex: 1;
+}

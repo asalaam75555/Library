@@ -53,7 +53,7 @@ function displayBooks (){
         noOfPages.innerText = myLibrary[index].noOfPages;
         newRow.appendChild(noOfPages);
         const isRead = document.createElement('td');
-        isRead.innerHTML = '<button> isRead </button>';
+        isRead.innerHTML = '<button> Read </button>';
         if (myLibrary[index].isRead){
             isRead.classList.add('read');
         }else{
@@ -67,5 +67,46 @@ function displayBooks (){
     }
     // });
 }
+
+const dialogForm = document.querySelector('#dialog-form');
+
+const addBook = document.querySelector('#add-btn');
+addBook.addEventListener('click' , () => {
+    dialogForm.showModal();
+});
+
+const submit =document.querySelector("#submit");
+const form = document.querySelector('#form');
+// submit.addEventListener('click', (e)=>{
+//     let target = e.target;
+// });
+form.addEventListener('submit',(e)=>{
+    let form = e.target;
+    e.preventDefault();
+    let author =  form[0].value;
+    let title = form[1].value;
+    let noOfPages = form[2].value;
+    let read = form[3].checked ? true : false;
+    if (author !== null && author )
+    addBookToLibrary(author, title, noOfPages, read);
+    dialogForm.close();
+    form[0].value = '';
+    form[1].value = '';
+    form[2].value = '';
+    form[3].checked = false;
+    form[4].checked = false;
+});
+
+dialogForm.addEventListener('close', (e) =>{
+    const tbody =  document.querySelector('tbody');
+    const tr = tbody.querySelectorAll('tr');
+    tr.forEach(tr => tbody.removeChild(tr));
+    displayBooks();
+});
+
+const cancel = document.querySelector('#Cancel');
+cancel.addEventListener('click' , (e)=> {
+    dialogForm.close();
+});
 
 displayBooks();
