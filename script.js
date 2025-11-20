@@ -39,6 +39,7 @@ function addBookToLibrary(author, title, noOfPages, isRead){
 
 function displayBooks (){
     const tbody =  document.querySelector('tbody');
+    let readbtnClass = ''
     // myLibrary.forEach( book => {
     for (let index in myLibrary){
         const newRow = document.createElement('tr');
@@ -55,12 +56,13 @@ function displayBooks (){
         noOfPages.innerText = myLibrary[index].noOfPages;
         newRow.appendChild(noOfPages);
         const isRead = document.createElement('td');
-        isRead.innerHTML = '<button> Read </button>';
         if (myLibrary[index].isRead){
-            isRead.classList.add('read');
+            readbtnClass = 'read';
         }else{
-            isRead.classList.add('not-read');
+            readbtnClass = 'not-read';
         }
+        isRead.innerHTML = `<button class="${readbtnClass} read-btn"> ${readbtnClass} </button>`;
+        
         newRow.appendChild(isRead);
         const deleteButton = document.createElement('td');
         deleteButton.innerHTML = `<button id="delete" data-id="${myLibrary[index].id}"> delete </button>`;
@@ -70,15 +72,32 @@ function displayBooks (){
 
     const deletebtn = document.querySelectorAll('#delete');
     deletebtn.forEach(btn => {
-    btn.addEventListener('click',(e) => {
-    let id = e.target.getAttribute('data-id');
-    let index = myLibrary.filter( a => a.id === id);
-    if (index !== -1){
-        myLibrary.splice(index,1);
-    }
-    reloadTableElements();
-})
-});
+        btn.addEventListener('click',(e) => {
+            let id = e.target.getAttribute('data-id');
+            let index = myLibrary.findIndex( a => a.id === id);
+            if (index !== -1){
+                myLibrary.splice(index,1);
+            }
+            reloadTableElements();
+        });
+    });
+    const readbtn = document.querySelectorAll('.read-btn');
+    readbtn.forEach(btn => {
+        btn.addEventListener('click', (e) =>{
+            if (e.target.textContent !== undefined && e.target.textContent !== null && e.target.textContent !== ''){
+                if (e.target.textContent.trim() === 'read'){
+                    e.target.textContent = "not-read";
+                    e.target.classList.remove('read');
+                    e.target.classList.add('not-read');
+                }else{
+                    e.target.textContent = "read";
+                    e.target.classList.remove('not-read');
+                    e.target.classList.add('read');
+                }
+            }
+            //reloadTableElements()
+        });
+    });
     // });
 }
 
