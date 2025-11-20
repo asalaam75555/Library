@@ -19,6 +19,8 @@ const myLibrary = [
     ),
 ];
 
+displayBooks();
+
 function Book(author, title, noOfPages, isRead){
     if (!new.target){
         throw Error("you must use the 'new' operator to call the constructor");
@@ -61,10 +63,22 @@ function displayBooks (){
         }
         newRow.appendChild(isRead);
         const deleteButton = document.createElement('td');
-        deleteButton.innerHTML = '<button> delete </button>';
+        deleteButton.innerHTML = `<button id="delete" data-id="${myLibrary[index].id}"> delete </button>`;
         newRow.appendChild(deleteButton);
         tbody.appendChild(newRow)
     }
+
+    const deletebtn = document.querySelectorAll('#delete');
+    deletebtn.forEach(btn => {
+    btn.addEventListener('click',(e) => {
+    let id = e.target.getAttribute('data-id');
+    let index = myLibrary.filter( a => a.id === id);
+    if (index !== -1){
+        myLibrary.splice(index,1);
+    }
+    reloadTableElements();
+})
+});
     // });
 }
 
@@ -97,11 +111,15 @@ form.addEventListener('submit',(e)=>{
     form[4].checked = false;
 });
 
-dialogForm.addEventListener('close', (e) =>{
+function reloadTableElements(){
     const tbody =  document.querySelector('tbody');
     const tr = tbody.querySelectorAll('tr');
     tr.forEach(tr => tbody.removeChild(tr));
     displayBooks();
+}
+
+dialogForm.addEventListener('close', (e) =>{
+    reloadTableElements()
 });
 
 const cancel = document.querySelector('#Cancel');
@@ -109,4 +127,7 @@ cancel.addEventListener('click' , (e)=> {
     dialogForm.close();
 });
 
-displayBooks();
+
+
+
+
