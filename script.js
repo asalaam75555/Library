@@ -1,3 +1,13 @@
+class Book{
+    constructor (author, title, noOfPages, isRead){
+        this.id = crypto.randomUUID();
+        this.author = author;
+        this.title = title;
+        this.noOfPages = noOfPages;
+        this.isRead = isRead;
+    }
+}
+
 const myLibrary = [
     new Book(
         "james",
@@ -21,16 +31,21 @@ const myLibrary = [
 
 displayBooks();
 
-function Book(author, title, noOfPages, isRead){
-    if (!new.target){
-        throw Error("you must use the 'new' operator to call the constructor");
-    }
-    this.id = crypto.randomUUID();
-    this.author = author;
-    this.title = title;
-    this.noOfPages = noOfPages;
-    this.isRead = isRead;
-}
+// This was used first using constructor pattern now we have 
+// changed it to class pattern
+
+// function Book(author, title, noOfPages, isRead){
+//     if (!new.target){
+//         throw Error("you must use the 'new' operator to call the constructor");
+//     }
+//     this.id = crypto.randomUUID();
+//     this.author = author;
+//     this.title = title;
+//     this.noOfPages = noOfPages;
+//     this.isRead = isRead;
+// }
+
+
 
 Book.prototype.changeRead = function(){
     if (this.isRead === true){
